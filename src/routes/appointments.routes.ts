@@ -8,9 +8,9 @@ import CreateAppointmentService from '../services/CreateAppointmentService';
 const appointmentRoute = Router();
 
 
-appointmentRoute.get('/', (request, response) => {
+appointmentRoute.get('/', async (request, response) => {
     const appoitmentsRepository = getCustomRepository(AppointmentRepository);
-    const appointments = appoitmentsRepository.find();
+    const appointments = await appoitmentsRepository.find();
 
     return response.json(appointments);
 });
@@ -33,7 +33,8 @@ appointmentRoute.post('/', async (request, response) => {
             appointment,
         });
     } catch (error) {
-        return response.status(400).json({ error: error.message() });
+        // console.log(error);
+        return response.status(400).json({ error: error.message });
     }
 });
 
