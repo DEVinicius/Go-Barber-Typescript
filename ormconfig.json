@@ -4,7 +4,7 @@
     "port":5438,
     "username":"postgres",
     "password":"docker",
-    "database":"gobarber",
+    "database":"go_barber",
     "entities": [
         "./src/models/*.ts"
     ],
