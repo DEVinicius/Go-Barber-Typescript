@@ -31,7 +31,7 @@ class CreateAppointmentService {
         }
 
         const appointment = appointmentsRepository.create({
-            provider,
+            provider_id: provider,
             date: appointmentDate,
         });
 
