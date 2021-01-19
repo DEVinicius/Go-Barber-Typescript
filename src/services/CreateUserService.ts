@@ -1,6 +1,7 @@
 //Import UserRepository and UserModel
 import User from '../models/User';
 import { getRepository } from 'typeorm';
+import { hash } from 'bcryptjs'
 
 interface Request {
     name: string;
@@ -12,7 +13,7 @@ class CreateUserService {
     public async execute({ name, email, password } : Request): Promise<User> {
         const userRepository = getRepository(User);
         
-        const checkMailExists = userRepository.findOne({
+        const checkMailExists = await userRepository.findOne({
             where: {
                 email
             }
@@ -23,11 +24,11 @@ class CreateUserService {
         }
 
         //send data to database
-        // const password_crypt = 
+        const hashedPassword = await hash(password, 8);
 
         const user = await userRepository.create({
             name, email, 
-            password: password
+            password: hashedPassword
         });
 
         await userRepository.save(user);
